@@ -1,0 +1,12 @@
+Dataset: CNN/DailyMail
+Number of articles: 3
+
+=== Evaluation Results ===
+
+{'method': 'graph', 'similarity': 'cosine', 'ranking': 'pagerank'}      : ROUGE-1 = 0.348 | ROUGE-2 = 0.204 | ROUGE-L = 0.266 | ROUGE-Lsum = 0.284 | BERT-F1 = 0.800
+{'method': 'graph', 'similarity': 'cosine', 'ranking': 'hits'}          : ROUGE-1 = 0.325 | ROUGE-2 = 0.197 | ROUGE-L = 0.269 | ROUGE-Lsum = 0.297 | BERT-F1 = 0.800
+{'method': 'graph', 'similarity': 'transformer', 'ranking': 'pagerank'} : ROUGE-1 = 0.318 | ROUGE-2 = 0.160 | ROUGE-L = 0.237 | ROUGE-Lsum = 0.266 | BERT-F1 = 0.792
+{'method': 'graph', 'similarity': 'transformer', 'ranking': 'hits'}     : ROUGE-1 = 0.325 | ROUGE-2 = 0.147 | ROUGE-L = 0.225 | ROUGE-Lsum = 0.255 | BERT-F1 = 0.789
+{'method': 'svm'}                                                       : ROUGE-1 = 0.297 | ROUGE-2 = 0.139 | ROUGE-L = 0.205 | ROUGE-Lsum = 0.244 | BERT-F1 = 0.773
+{'method': 'naive_bayes'}                                               : ROUGE-1 = 0.347 | ROUGE-2 = 0.189 | ROUGE-L = 0.251 | ROUGE-Lsum = 0.296 | BERT-F1 = 0.795
+{'method': 'knn'}                                                       : ROUGE-1 = 0.322 | ROUGE-2 = 0.183 | ROUGE-L = 0.249 | ROUGE-Lsum = 0.279 | BERT-F1 = 0.791

@@ -328,7 +328,7 @@ if __name__ == "__main__":
     
     # Configuration
     DATASET_CHOICE = "cnn"  # "bbc" or "cnn"
-    DATASET_SIZE = 3000     
+    DATASET_SIZE = 3     
     SUMMARY_SIZE = 3        # 5 for bbc and 3 for cnn
     
     # Load data
