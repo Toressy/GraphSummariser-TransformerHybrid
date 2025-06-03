@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document Summarizer</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📄 Document Summarizer</h1>
+        
+        <form id="summarize-form">
+            <div class="input-section">
+                <h2>Input Text</h2>
+                <textarea name="text_content" rows="10" required></textarea>
+            </div>
+            
+            <div class="options-section">
+                <div class="methods">
+                    <h2>Summarization Methods</h2>
+                    
+                    <div class="method-group">
+                        <h3>Graph-based Methods</h3>
+                        <div class="method-options">
+                            <label class="method-card">
+                                <input type="checkbox" name="methods" value="graph_cosine_pagerank">
+                                <div class="card-content">
+                                    <span class="method-name">Cosine + PageRank</span>
+                                    <span class="method-desc">Uses cosine similarity with PageRank algorithm</span>
+                                </div>
+                            </label>
+                            
+                            <label class="method-card">
+                                <input type="checkbox" name="methods" value="graph_cosine_hits">
+                                <div class="card-content">
+                                    <span class="method-name">Cosine + HITS</span>
+                                    <span class="method-desc">Uses cosine similarity with HITS algorithm</span>
+                                </div>
+                            </label>
+
+                            <label class="method-card">
+                                <input type="checkbox" name="methods" value="graph_transformer_pagerank">
+                                <div class="card-content">
+                                    <span class="method-name">Transformer + PageRank</span>
+                                    <span class="method-desc">Uses cross-encoder with PageRank algorithm</span>
+                                </div>
+                            </label>
+
+                            <label class="method-card">
+                                <input type="checkbox" name="methods" value="graph_transformer_hits">
+                                <div class="card-content">
+                                    <span class="method-name">Transformer + HITS</span>
+                                    <span class="method-desc">Uses cross-encoder with HITS algorithm</span>
+                                </div>
+                            </label>
+                            
+                            <!-- Add other graph methods similarly -->
+                        </div>
+                    </div>
+                    
+                    <div class="method-group">
+                        <h3>Classifier Methods</h3>
+                        <div class="method-options">
+                            <label class="method-card">
+                                <input type="checkbox" name="methods" value="svm">
+                                <div class="card-content">
+                                    <span class="method-name">SVM Classifier</span>
+                                    <span class="method-desc">Support Vector Machine classification</span>
+                                </div>
+                            </label>
+                            
+                            <label class="method-card">
+                                <input type="checkbox" name="methods" value="knn">
+                                <div class="card-content">
+                                    <span class="method-name">KNN Classifier</span>
+                                    <span class="method-desc">K-Nearest Neighbors algorithm</span>
+                                </div>
+                            </label>
+
+                            <label class="method-card">
+                                <input type="checkbox" name="methods" value="nb">
+                                <div class="card-content">
+                                    <span class="method-name">Naive Bayes Classifier</span>
+                                    <span class="method-desc">Naive Bayes algorithm</span>
+                                </div>
+                            </label>
+                            
+                            <!-- Add other classifier methods -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="settings">
+                    <h2>Settings</h2>
+                    <label>Summary length: 
+                        <input type="range" name="summary_size" min="3" max="10" value="5">
+                        <span id="size-value">5</span> sentences
+                    </label>
+                </div>
+            </div>
+            
+            <button type="submit">Generate Summaries</button>
+        </form>
+        
+        <div id="results" class="results-section"></div>
+    </div>
+
+    <script>
+        document.getElementById('summarize-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const response = await fetch('/', {
+                method: 'POST',
+                body: formData
+            });
+            const results = await response.json();
+            
+            let html = '<h2>Results</h2>';
+            for (const [method, result] of Object.entries(results)) {
+                if (result.error) {
+                    html += `<div class="error">${method}: ${result.error}</div>`;
+                } else {
+                    html += `
+                    <div class="summary-box">
+                        <h3>${method.replace(/_/g, ' ')}</h3>
+                        <p>⏱️ Processing time: ${result.time}</p>
+                        <div class="summary">${result.summary}</div>
+                    </div>`;
+                }
+            }
+            document.getElementById('results').innerHTML = html;
+        });
+
+        // Update slider value display
+        document.querySelector('input[name="summary_size"]').addEventListener('input', (e) => {
+            document.getElementById('size-value').textContent = e.target.value;
+        });
+    </script>
+</body>
+</html>
