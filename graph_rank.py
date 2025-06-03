@@ -4,6 +4,10 @@ import time
 import torch
 import numpy as np
 import networkx as nx
+import nltk
+nltk.download('punkt')  # Not 'punkt_tab' - that was a typo in the error
+nltk.download('stopwords')  # Optional but recommended
+from datetime import datetime
 from datetime import datetime
 from datasets import load_dataset
 from functools import lru_cache, partial
